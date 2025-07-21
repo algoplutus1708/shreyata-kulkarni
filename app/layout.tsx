@@ -4,7 +4,7 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: "Shreya Portfolio",
-  description: "Shreyata Kulkarni's Professional Portfolio",
+  description: "Swastick has made this",
     generator: 'Swastick'
 }
 
