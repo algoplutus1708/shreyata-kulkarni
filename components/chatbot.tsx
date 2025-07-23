@@ -50,7 +50,8 @@ export default function Chatbot({ skills, experiences }: ChatbotProps) {
   }
 
   useEffect(() => {
-    scrollToBottom()
+    // A slight delay to allow the new message to render before scrolling
+    setTimeout(scrollToBottom, 100)
   }, [messages])
 
   const handleSendMessage = async () => {
@@ -198,9 +199,9 @@ export default function Chatbot({ skills, experiences }: ChatbotProps) {
                 </div>
               </CardHeader>
 
-              <CardContent className="p-0 flex-1 flex flex-col">
+              <CardContent className="p-0 flex-1 flex flex-col min-h-0">
                 {/* Messages */}
-                <ScrollArea className="flex-1">
+                <ScrollArea className="flex-1 h-full">
                   <div className="p-4 space-y-4">
                     {messages.map((message) => (
                       <motion.div
@@ -228,7 +229,9 @@ export default function Chatbot({ skills, experiences }: ChatbotProps) {
                         </div>
                         {!message.isBot && (
                           <div className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <User className="w-3 h-3 text-gray-600 dark:text-gray-300" />
+                            <User
+                              className="w-3 h-3 text-gray-600 dark:text-gray-300"
+                            />
                           </div>
                         )}
                       </motion.div>
