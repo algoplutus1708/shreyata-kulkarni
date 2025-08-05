@@ -1002,7 +1002,7 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="text-gray-400"
             >
-              © 2024 Shreyata Kulkarni. Crafted with passion for quality engineering.
+              © 2025 Shreyata Kulkarni. Crafted with passion for quality engineering.
             </motion.p>
           </div>
         </footer>
