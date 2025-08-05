@@ -29,6 +29,41 @@ import {
   X,
 } from "lucide-react"
 
+// Cypress Logo SVG Component
+const CypressIcon = () => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 128 128"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="mx-auto"
+  >
+    <circle cx="64" cy="64" r="64" fill="url(#paint0_linear_1_2)" />
+    <path
+      d="M93.3871 103.548C84.2258 103.548 76.2258 100.29 69.3871 93.7419C62.5484 87.1935 59.129 79.3548 59.129 70.2258C59.129 61.0968 62.5484 53.2581 69.3871 46.7097C76.2258 40.1613 84.2258 36.9032 93.3871 36.9032C102.548 36.9032 110.548 40.1613 117.387 46.7097C124.226 53.2581 127.645 61.0968 127.645 70.2258C127.645 79.3548 124.226 87.1935 117.387 93.7419C110.548 100.29 102.548 103.548 93.3871 103.548ZM93.3871 43.1613C85.8387 43.1613 79.2581 45.9677 73.6452 51.5806C68.0323 57.1935 65.2258 63.6452 65.2258 70.9355C65.2258 78.2258 68.0323 84.6774 73.6452 90.2903C79.2581 95.9032 85.8387 98.7097 93.3871 98.7097C100.935 98.7097 107.516 95.9032 113.129 90.2903C118.742 84.6774 121.548 78.2258 121.548 70.9355C121.548 63.6452 118.742 57.1935 113.129 51.5806C107.516 45.9677 100.935 43.1613 93.3871 43.1613Z"
+      fill="#E5E5E5"
+    />
+    <path
+      d="M36.9032 70.2258C36.9032 79.3548 33.4839 87.1935 26.6452 93.7419C19.8065 100.29 11.8065 103.548 2.64516 103.548C1.58065 103.548 0.645161 103.419 0 103.161L45.4194 24.129C45.8065 24.2581 46.0645 24.5161 46.1935 24.9032C46.3226 25.1613 46.3871 25.4194 46.3871 25.8065C46.3871 29.871 45.1935 33.7419 42.8065 37.4194C40.4194 41.0968 37.9677 44 35.4516 46.1935C33.0645 48.2581 30.2581 50.7097 27.0323 53.5484C23.8065 56.3871 21.4194 58.9677 19.871 61.2903C18.3226 63.6129 17.5484 66.5806 17.5484 70.2258H36.9032Z"
+      fill="white"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_1_2"
+        x1="0"
+        y1="0"
+        x2="128"
+        y2="128"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#25A8A8" />
+        <stop offset="1" stopColor="#0D6363" />
+      </linearGradient>
+    </defs>
+  </svg>
+)
+
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
@@ -82,7 +117,7 @@ export default function Portfolio() {
     { name: "Selenium WebDriver", icon: "🔧", level: 95, color: "from-blue-500 to-cyan-500" },
     { name: "Java", icon: "☕", level: 90, color: "from-orange-500 to-red-500" },
     { name: "Playwright", icon: "🎭", level: 88, color: "from-purple-500 to-pink-500" },
-    { name: "Spring Framework", icon: "🌱", level: 85, color: "from-green-500 to-emerald-500" },
+    { name: "Cypress", icon: <CypressIcon />, level: 85, color: "from-green-400 to-green-600" },
     { name: "Spring Boot", icon: "🚀", level: 87, color: "from-indigo-500 to-purple-500" },
     { name: "Test Automation", icon: "🤖", level: 95, color: "from-teal-500 to-blue-500" },
     { name: "SOAP/REST APIs", icon: "🌐", level: 85, color: "from-yellow-500 to-orange-500" },
@@ -142,7 +177,7 @@ export default function Portfolio() {
   ]
 
   const stats = [
-    { icon: Award, label: "Years Experience", value: "11+", color: "from-blue-500 to-purple-500" },
+    { icon: Award, label: "Years Experience", value: "8+", color: "from-blue-500 to-purple-500" },
     { icon: Target, label: "Projects Completed", value: "50+", color: "from-green-500 to-blue-500" },
     { icon: TrendingUp, label: "Test Coverage", value: "95%", color: "from-orange-500 to-red-500" },
     { icon: Users, label: "Team Members Led", value: "25+", color: "from-purple-500 to-pink-500" },
@@ -535,7 +570,7 @@ export default function Portfolio() {
                   transition={{ duration: 0.8, delay: 1 }}
                   className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
                 >
-                  Efficient Software Test Engineer with 11+ years of experience in Automation and Manual Testing.
+                  Efficient Software Test Engineer with 8+ years of experience in Automation and Manual Testing.
                   Specialized in developing and maintaining test automation frameworks, building test cases and
                   procedures, preparing test analysis, and developing requirement traceability matrices.
                 </motion.p>
@@ -616,248 +651,262 @@ export default function Portfolio() {
             </div>
           </section>
 
-          {/* Skills Section - ALWAYS VISIBLE */}
+          {/* Skills Section */}
           <section
             ref={skillsRef}
             id="skills"
             className="min-h-screen flex items-center py-20 px-6 bg-gray-50/50 dark:bg-gray-800/50"
           >
             <div className="container mx-auto max-w-6xl">
-              {/* Section Header - Always visible */}
               <motion.div
-                initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-                className="text-center mb-16"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
               >
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Technical Expertise
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-400">
-                  Specialized skills in test automation and quality engineering
-                </p>
-              </motion.div>
+                <div className="text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Technical Expertise
+                  </h2>
+                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                    Specialized skills in test automation and quality engineering
+                  </p>
+                </div>
 
-              {/* Skills Grid - Always visible */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                      delay: skillsInView ? index * 0.1 : 0,
-                      duration: 0.6,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    whileHover={{ y: -10, scale: 1.02 }}
-                    className="group"
-                  >
-                    <Card className="h-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-500 border-0 overflow-hidden">
-                      <CardContent className="p-6 text-center">
-                        <motion.div
-                          initial={{ scale: 0, rotate: -180 }}
-                          animate={{ scale: 1, rotate: 0 }}
-                          transition={{
-                            delay: skillsInView ? index * 0.1 + 0.1 : 0.1,
-                            duration: 0.5,
-                            type: "spring",
-                            stiffness: 200,
-                          }}
-                          whileHover={{ rotate: 360, scale: 1.2 }}
-                          className="text-4xl mb-4"
-                        >
-                          {skill.icon}
-                        </motion.div>
-                        <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                          {skill.name}
-                        </h3>
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-2 overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {skills.map((skill, index) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        delay: index * 0.1,
+                        duration: 0.6,
+                        type: "spring",
+                        stiffness: 100,
+                      }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -10, scale: 1.02 }}
+                      className="group"
+                    >
+                      <Card className="h-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-500 border-0 overflow-hidden">
+                        <CardContent className="p-6 text-center">
                           <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${skill.level}%` }}
+                            initial={{ scale: 0, rotate: -180 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
                             transition={{
-                              delay: skillsInView ? index * 0.1 + 0.3 : 0.3,
-                              duration: 1.2,
+                              delay: index * 0.1 + 0.1,
+                              duration: 0.5,
                               type: "spring",
+                              stiffness: 200,
                             }}
-                            className={`bg-gradient-to-r ${skill.color} h-3 rounded-full relative overflow-hidden`}
+                            viewport={{ once: true }}
+                            whileHover={{ rotate: 360, scale: 1.2 }}
+                            className="h-10 w-10 mx-auto mb-4 flex items-center justify-center text-4xl"
                           >
-                            <motion.div
-                              animate={{ x: ["0%", "100%"] }}
-                              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                              className="absolute inset-0 bg-white/30 w-1/4"
-                            />
+                            {skill.icon}
                           </motion.div>
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">{skill.level}%</span>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Experience Section - ALWAYS VISIBLE */}
-          <section ref={experienceRef} id="experience" className="min-h-screen flex items-center py-20 px-6">
-            <div className="container mx-auto max-w-6xl">
-              {/* Section Header - Always visible */}
-              <motion.div
-                initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-                className="text-center mb-16"
-              >
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Professional Journey
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-400">
-                  11+ years of excellence in software testing and quality engineering
-                </p>
-              </motion.div>
-
-              <div className="relative">
-                {/* Timeline Line - Always visible */}
-                <motion.div
-                  className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: experienceInView ? 1.5 : 0.5, ease: "easeInOut" }}
-                  style={{ originY: 0 }}
-                />
-
-                {/* Experience Items - Always visible */}
-                {experiences.map((exp, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100, scale: 0.8 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    transition={{
-                      delay: experienceInView ? index * 0.2 : 0,
-                      duration: 0.6,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    className={`relative flex flex-col md:flex-row items-center mb-12 ${
-                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
-                  >
-                    <div className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pr-8" : "md:pl-8"}`}>
-                      <motion.div whileHover={{ scale: 1.02, y: -5 }} className="group">
-                        <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-500 border-0 overflow-hidden">
-                          <CardContent className="p-6">
+                          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            {skill.name}
+                          </h3>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-2 overflow-hidden">
                             <motion.div
-                              initial={{ opacity: 0, width: 0 }}
-                              animate={{ opacity: 1, width: "100%" }}
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.level}%` }}
                               transition={{
-                                delay: experienceInView ? index * 0.2 + 0.1 : 0,
-                                duration: 0.8,
-                                ease: "easeOut",
+                                delay: index * 0.1 + 0.3,
+                                duration: 1.2,
+                                type: "spring",
                               }}
-                              className={`w-full h-2 bg-gradient-to-r ${exp.color} rounded-full mb-4 relative overflow-hidden`}
+                              viewport={{ once: true }}
+                              className={`bg-gradient-to-r ${skill.color} h-3 rounded-full relative overflow-hidden`}
                             >
                               <motion.div
                                 animate={{ x: ["0%", "100%"] }}
-                                transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                                className="absolute inset-0 bg-white/30 w-1/3"
+                                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                                className="absolute inset-0 bg-white/30 w-1/4"
                               />
                             </motion.div>
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                delay: experienceInView ? index * 0.2 + 0.2 : 0,
-                                duration: 0.4,
-                              }}
-                              className="flex items-center gap-2 mb-2"
-                            >
-                              <Calendar className="w-4 h-4 text-gray-500" />
-                              <Badge variant="secondary" className="text-xs">
-                                {exp.period}
-                              </Badge>
-                            </motion.div>
-                            <motion.h3
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                delay: experienceInView ? index * 0.2 + 0.3 : 0,
-                                duration: 0.4,
-                              }}
-                              className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                            >
-                              {exp.role}
-                            </motion.h3>
-                            <motion.h4
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                delay: experienceInView ? index * 0.2 + 0.4 : 0,
-                                duration: 0.4,
-                              }}
-                              className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors"
-                            >
-                              {exp.company}
-                            </motion.h4>
-                            <motion.p
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{
-                                delay: experienceInView ? index * 0.2 + 0.5 : 0,
-                                duration: 0.4,
-                              }}
-                              className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors"
-                            >
-                              {exp.description}
-                            </motion.p>
-                            <div className="space-y-2">
-                              {exp.achievements.map((achievement, achIndex) => (
-                                <motion.div
-                                  key={achIndex}
-                                  initial={{ opacity: 0, x: -20 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{
-                                    delay: experienceInView ? index * 0.2 + achIndex * 0.1 + 0.6 : 0.6,
-                                    duration: 0.4,
-                                    type: "spring",
-                                    stiffness: 150,
-                                  }}
-                                  className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
-                                >
-                                  <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{
-                                      delay: experienceInView ? index * 0.2 + achIndex * 0.1 + 0.5 : 0.5,
-                                      duration: 0.3,
-                                      type: "spring",
-                                      stiffness: 200,
-                                    }}
-                                    className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                                  />
-                                  {achievement}
-                                </motion.div>
-                              ))}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    </div>
-
-                    {/* Timeline Dot */}
-                    <motion.div
-                      whileHover={{ scale: 1.5, rotate: 360 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white dark:bg-gray-800 border-4 border-blue-500 rounded-full z-10 shadow-lg"
-                    />
-                  </motion.div>
-                ))}
-              </div>
+                          </div>
+                          <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">{skill.level}%</span>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </section>
 
-          {/* Contact Section - ALWAYS VISIBLE */}
+          {/* Experience Section */}
+          <section ref={experienceRef} id="experience" className="min-h-screen flex items-center py-20 px-6">
+            <div className="container mx-auto max-w-6xl">
+              <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true }}
+              >
+                <div className="text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Professional Journey
+                  </h2>
+                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                    8+ years of excellence in software testing and quality engineering
+                  </p>
+                </div>
+
+                <div className="relative">
+                  <motion.div
+                    className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ originY: 0 }}
+                    viewport={{ once: true }}
+                  />
+
+                  {experiences.map((exp, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 100 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      className={`relative flex flex-col md:flex-row items-center mb-12 ${
+                        index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                      }`}
+                    >
+                      <div className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pr-8" : "md:pl-8"}`}>
+                        <motion.div
+                          whileHover={{
+                            scale: 1.03,
+                            y: -8,
+                            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)",
+                          }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                          className="group"
+                        >
+                          <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-500 border-0 overflow-hidden">
+                            <CardContent className="p-6">
+                              <motion.div
+                                initial={{ opacity: 0, width: 0 }}
+                                whileInView={{ opacity: 1, width: "100%" }}
+                                transition={{
+                                  delay: 0.2,
+                                  duration: 0.8,
+                                  ease: "easeOut",
+                                }}
+                                viewport={{ once: true }}
+                                className={`w-full h-2 bg-gradient-to-r ${exp.color} rounded-full mb-4 relative overflow-hidden`}
+                              >
+                                <motion.div
+                                  animate={{ x: ["0%", "100%"] }}
+                                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                                  className="absolute inset-0 bg-white/30 w-1/3"
+                                />
+                              </motion.div>
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                  delay: 0.3,
+                                  duration: 0.4,
+                                }}
+                                viewport={{ once: true }}
+                                className="flex items-center gap-2 mb-2"
+                              >
+                                <Calendar className="w-4 h-4 text-gray-500" />
+                                <Badge variant="secondary" className="text-xs">
+                                  {exp.period}
+                                </Badge>
+                              </motion.div>
+                              <motion.h3
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                  delay: 0.4,
+                                  duration: 0.4,
+                                }}
+                                viewport={{ once: true }}
+                                className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                              >
+                                {exp.role}
+                              </motion.h3>
+                              <motion.h4
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                  delay: 0.5,
+                                  duration: 0.4,
+                                }}
+                                viewport={{ once: true }}
+                                className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors"
+                              >
+                                {exp.company}
+                              </motion.h4>
+                              <motion.p
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                  delay: 0.6,
+                                  duration: 0.4,
+                                }}
+                                viewport={{ once: true }}
+                                className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors"
+                              >
+                                {exp.description}
+                              </motion.p>
+                              <div className="space-y-2">
+                                {exp.achievements.map((achievement, achIndex) => (
+                                  <motion.div
+                                    key={achIndex}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                      delay: 0.7 + achIndex * 0.1,
+                                      duration: 0.4,
+                                      type: "spring",
+                                      stiffness: 150,
+                                    }}
+                                    viewport={{ once: true }}
+                                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
+                                  >
+                                    <motion.div
+                                      initial={{ scale: 0 }}
+                                      whileInView={{ scale: 1 }}
+                                      transition={{
+                                        delay: 0.6 + achIndex * 0.1,
+                                        duration: 0.3,
+                                        type: "spring",
+                                        stiffness: 200,
+                                      }}
+                                      viewport={{ once: true }}
+                                      className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                                    />
+                                    {achievement}
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      </div>
+
+                      <motion.div
+                        whileHover={{ scale: 1.5, rotate: 360 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white dark:bg-gray-800 border-4 border-blue-500 rounded-full z-10 shadow-lg"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Contact Section */}
           <section
             ref={contactRef}
             id="contact"
@@ -866,11 +915,11 @@ export default function Portfolio() {
             <div className="container mx-auto text-center max-w-4xl">
               <motion.div
                 initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+                viewport={{ once: true }}
                 className="space-y-8"
               >
-                {/* Section Header - Always visible */}
                 <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Let's Connect
                 </h2>
@@ -879,11 +928,11 @@ export default function Portfolio() {
                   amazing together.
                 </p>
 
-                {/* Contact Buttons - Always visible with functional links */}
                 <motion.div
                   initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ delay: 0.4, duration: 0.6, type: "spring", stiffness: 100 }}
+                  viewport={{ once: true }}
                   className="flex flex-col sm:flex-row gap-6 justify-center"
                 >
                   {[
@@ -904,13 +953,14 @@ export default function Portfolio() {
                     <motion.div
                       key={item.text}
                       initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{
-                        delay: contactInView ? index * 0.1 + 0.6 : 0.6,
+                        delay: index * 0.1 + 0.6,
                         duration: 0.5,
                         type: "spring",
                         stiffness: 150,
                       }}
+                      viewport={{ once: true }}
                       whileHover={{ scale: 1.05, y: -5 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -952,7 +1002,7 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="text-gray-400"
             >
-              © 2024 Shreyta Kulkarni. Crafted with passion for quality engineering.
+              © 2024 Shreyata Kulkarni. Crafted with passion for quality engineering.
             </motion.p>
           </div>
         </footer>
