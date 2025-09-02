@@ -1,11 +1,15 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion, useScroll, useInView, AnimatePresence } from "framer-motion"
+import { motion, useScroll, useInView, AnimatePresence, useMotionValue, useSpring } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Chatbot from "@/components/chatbot"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Moon,
   Sun,
@@ -27,6 +31,7 @@ import {
   ChevronDown,
   Menu,
   X,
+  Send,
 } from "lucide-react"
 
 // Cypress Logo SVG Component
@@ -70,6 +75,29 @@ export default function Portfolio() {
   const [mounted, setMounted] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Form state
+  const [formStatus, setFormStatus] = useState("")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [subject, setSubject] = useState("")
+  const [message, setMessage] = useState("")
+
+  // Mouse position for glowing background effect
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 100, stiffness: 10, mass: 5 }
+  const smoothMouseX = useSpring(mouseX, springConfig)
+  const smoothMouseY = useSpring(mouseY, springConfig)
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [mouseX, mouseY])
 
   // Refs for sections
   const heroRef = useRef<HTMLElement>(null)
@@ -221,6 +249,44 @@ export default function Portfolio() {
     document.body.removeChild(link)
   }
 
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormStatus("Sending...")
+
+    // --- REPLACE THESE WITH YOUR GOOGLE FORM VALUES ---
+    const GOOGLE_FORM_ID = "YOUR_FORM_ID"
+    const GOOGLE_FORM_URL = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`
+    const NAME_ENTRY_ID = "entry.YOUR_NAME_ID"
+    const EMAIL_ENTRY_ID = "entry.YOUR_EMAIL_ID"
+    const SUBJECT_ENTRY_ID = "entry.YOUR_SUBJECT_ID"
+    const MESSAGE_ENTRY_ID = "entry.YOUR_MESSAGE_ID"
+    // ----------------------------------------------------
+
+    const formData = new FormData()
+    formData.append(NAME_ENTRY_ID, name)
+    formData.append(EMAIL_ENTRY_ID, email)
+    formData.append(SUBJECT_ENTRY_ID, subject)
+    formData.append(MESSAGE_ENTRY_ID, message)
+
+    try {
+      await fetch(GOOGLE_FORM_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors", // Important for Google Forms to avoid CORS errors
+      })
+      setFormStatus("Message sent successfully!")
+      setName("")
+      setEmail("")
+      setSubject("")
+      setMessage("")
+      setTimeout(() => setFormStatus(""), 5000)
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      setFormStatus("An error occurred. Please try again.")
+      setTimeout(() => setFormStatus(""), 5000)
+    }
+  }
+
   // Don't render anything until mounted
   if (!mounted) {
     return (
@@ -299,7 +365,15 @@ export default function Portfolio() {
       />
 
       {/* Main Container */}
-      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen relative">
+      <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-white min-h-screen relative">
+        {/* Glowing Background Effect */}
+        <motion.div
+          className="pointer-events-none fixed inset-0 z-30 transition duration-300"
+          style={{
+            background: `radial-gradient(600px at ${smoothMouseX}px ${smoothMouseY}px, rgba(29, 78, 216, 0.15), transparent 80%)`,
+          }}
+        />
+
         {/* Animated Background */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
           {Array.from({ length: 15 }, (_, i) => (
@@ -655,7 +729,7 @@ export default function Portfolio() {
           <section
             ref={skillsRef}
             id="skills"
-            className="min-h-screen flex items-center py-20 px-6 bg-gray-50/50 dark:bg-gray-800/50"
+            className="min-h-screen flex items-center py-20 px-6 bg-gray-50/50 dark:bg-gray-900/80"
           >
             <div className="container mx-auto max-w-6xl">
               <motion.div
@@ -907,11 +981,7 @@ export default function Portfolio() {
           </section>
 
           {/* Contact Section */}
-          <section
-            ref={contactRef}
-            id="contact"
-            className="min-h-screen flex items-center py-20 px-6 bg-gray-50/50 dark:bg-gray-800/50"
-          >
+          <section ref={contactRef} id="contact" className="min-h-screen flex items-center py-20 px-6">
             <div className="container mx-auto text-center max-w-4xl">
               <motion.div
                 initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -923,65 +993,137 @@ export default function Portfolio() {
                 <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Let's Connect
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                  Ready to discuss quality engineering solutions or explore new opportunities? Let's build something
-                  amazing together.
-                </p>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.4, duration: 0.6, type: "spring", stiffness: 100 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col sm:flex-row gap-6 justify-center"
-                >
-                  {[
-                    {
-                      icon: Mail,
-                      text: "Email Me",
-                      gradient: "from-blue-600 to-purple-600",
-                      onClick: handleEmailClick,
-                    },
-                    {
-                      icon: Linkedin,
-                      text: "LinkedIn",
-                      gradient: "from-blue-500 to-blue-700",
-                      onClick: handleLinkedInClick,
-                    },
-                    { icon: Github, text: "GitHub", gradient: "from-gray-700 to-gray-900", onClick: handleGitHubClick },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={item.text}
-                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{
-                        delay: index * 0.1 + 0.6,
-                        duration: 0.5,
-                        type: "spring",
-                        stiffness: 150,
-                      }}
-                      viewport={{ once: true }}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Button
-                        size="lg"
-                        onClick={item.onClick}
-                        className={`bg-gradient-to-r ${item.gradient} hover:shadow-2xl text-white px-8 py-4 rounded-full transition-all duration-300 relative overflow-hidden group cursor-pointer`}
-                      >
-                        <motion.div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                        <motion.div
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.5 }}
-                          className="relative z-10"
-                        >
-                          <item.icon className="w-5 h-5 mr-2" />
-                        </motion.div>
-                        <span className="relative z-10">{item.text}</span>
-                      </Button>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                <Tabs defaultValue="form" className="w-full max-w-2xl mx-auto">
+                  <TabsList className="grid w-full grid-cols-2 bg-gray-800/80 backdrop-blur-sm p-1 rounded-xl">
+                    <TabsTrigger value="form" className="rounded-lg">
+                      Contact Form
+                    </TabsTrigger>
+                    <TabsTrigger value="info" className="rounded-lg">
+                      Contact Info
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="form">
+                    <Card className="bg-gray-900/50 backdrop-blur-sm shadow-2xl border-gray-700/50 text-left mt-4">
+                      <CardContent className="p-6">
+                        <form onSubmit={handleFormSubmit} className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="name">Name</Label>
+                            <Input
+                              id="name"
+                              type="text"
+                              placeholder="Your name"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
+                              required
+                              className="bg-gray-800 border-gray-700 focus:ring-blue-500"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              placeholder="your.email@example.com"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                              className="bg-gray-800 border-gray-700 focus:ring-blue-500"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="subject">Subject</Label>
+                            <Input
+                              id="subject"
+                              type="text"
+                              placeholder="What is this regarding?"
+                              value={subject}
+                              onChange={(e) => setSubject(e.target.value)}
+                              required
+                              className="bg-gray-800 border-gray-700 focus:ring-blue-500"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="message">Message</Label>
+                            <Textarea
+                              id="message"
+                              placeholder="Your message here..."
+                              value={message}
+                              onChange={(e) => setMessage(e.target.value)}
+                              required
+                              className="min-h-[120px] bg-gray-800 border-gray-700 focus:ring-blue-500"
+                            />
+                          </div>
+                          <div className="text-center pt-2">
+                            <Button
+                              type="submit"
+                              size="lg"
+                              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-300 w-full"
+                              disabled={formStatus === "Sending..." || formStatus.includes("successfully")}
+                            >
+                              <Send className="w-4 h-4 mr-2" />
+                              {formStatus || "Send Message"}
+                            </Button>
+                          </div>
+                        </form>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                  <TabsContent value="info">
+                    <Card className="bg-gray-900/50 backdrop-blur-sm shadow-2xl border-gray-700/50 mt-4">
+                      <CardContent className="p-6 space-y-6">
+                        <p className="text-lg text-gray-300">
+                          Ready to discuss quality engineering solutions or explore new opportunities? Let's build something
+                          amazing together.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                          {[
+                            {
+                              icon: Mail,
+                              text: "Email Me",
+                              gradient: "from-blue-600 to-purple-600",
+                              onClick: handleEmailClick,
+                            },
+                            {
+                              icon: Linkedin,
+                              text: "LinkedIn",
+                              gradient: "from-blue-500 to-blue-700",
+                              onClick: handleLinkedInClick,
+                            },
+                            {
+                              icon: Github,
+                              text: "GitHub",
+                              gradient: "from-gray-700 to-gray-900",
+                              onClick: handleGitHubClick,
+                            },
+                          ].map((item) => (
+                            <motion.div
+                              key={item.text}
+                              whileHover={{ scale: 1.05, y: -5 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <Button
+                                size="lg"
+                                onClick={item.onClick}
+                                className={`bg-gradient-to-r ${item.gradient} hover:shadow-2xl text-white px-6 py-3 rounded-lg transition-all duration-300 relative overflow-hidden group cursor-pointer w-full`}
+                              >
+                                <motion.div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                <motion.div
+                                  whileHover={{ rotate: 360 }}
+                                  transition={{ duration: 0.5 }}
+                                  className="relative z-10"
+                                >
+                                  <item.icon className="w-5 h-5 mr-2" />
+                                </motion.div>
+                                <span className="relative z-10">{item.text}</span>
+                              </Button>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                </Tabs>
               </motion.div>
             </div>
           </section>
