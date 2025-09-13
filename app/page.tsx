@@ -250,42 +250,39 @@ export default function Portfolio() {
   }
 
   const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setFormStatus("Sending...")
-
-    // --- GOOGLE FORM VALUES ---
-    const GOOGLE_FORM_ID = "1FAIpQLSdxGX9_9sfsQIOnCsL3frh6YfBrFRsR7Z4qafxDXZ1kn8S2wQ"
-    const GOOGLE_FORM_URL = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`
-    const NAME_ENTRY_ID = "entry.294900366"
-    const EMAIL_ENTRY_ID = "entry.1361506581"
-    const SUBJECT_ENTRY_ID = "entry.1388554904"
-    const MESSAGE_ENTRY_ID = "entry.1444328344"
-    // ----------------------------------------------------
-
-    const formData = new FormData()
-    formData.append(NAME_ENTRY_ID, name)
-    formData.append(EMAIL_ENTRY_ID, email)
-    formData.append(SUBJECT_ENTRY_ID, subject)
-    formData.append(MESSAGE_ENTRY_ID, message)
+    e.preventDefault();
+    setFormStatus("Sending...");
 
     try {
-      await fetch(GOOGLE_FORM_URL, {
-        method: "POST",
-        body: formData,
-        mode: "no-cors", // Important for Google Forms to avoid CORS errors
-      })
-      setFormStatus("Message sent successfully!")
-      setName("")
-      setEmail("")
-      setSubject("")
-      setMessage("")
-      setTimeout(() => setFormStatus(""), 5000)
+      // 1. Send the form data to OUR OWN API route as JSON
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }), // We send a simple JSON object
+      });
+
+      // 2. Now we can properly check the response from our own server!
+      if (response.ok) {
+        setFormStatus("Message sent successfully!");
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+        setTimeout(() => setFormStatus(""), 5000);
+      } else {
+        // Our server will tell us if it failed
+        setFormStatus("An error occurred. Please try again.");
+        setTimeout(() => setFormStatus(""), 5000);
+      }
     } catch (error) {
-      console.error("Error submitting form:", error)
-      setFormStatus("An error occurred. Please try again.")
-      setTimeout(() => setFormStatus(""), 5000)
+      // This will catch network errors (e.g., user is offline)
+      console.error("Error submitting form:", error);
+      setFormStatus("An error occurred. Please try again.");
+      setTimeout(() => setFormStatus(""), 5000);
     }
-  }
+  };
 
   // Don't render anything until mounted
   if (!mounted) {
