@@ -253,13 +253,13 @@ export default function Portfolio() {
     e.preventDefault()
     setFormStatus("Sending...")
 
-    // --- REPLACE THESE WITH YOUR GOOGLE FORM VALUES ---
-    const GOOGLE_FORM_ID = "YOUR_FORM_ID"
+    // --- GOOGLE FORM VALUES ---
+    const GOOGLE_FORM_ID = "1FAIpQLSdxGX9_9sfsQIOnCsL3frh6YfBrFRsR7Z4qafxDXZ1kn8S2wQ"
     const GOOGLE_FORM_URL = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`
-    const NAME_ENTRY_ID = "entry.YOUR_NAME_ID"
-    const EMAIL_ENTRY_ID = "entry.YOUR_EMAIL_ID"
-    const SUBJECT_ENTRY_ID = "entry.YOUR_SUBJECT_ID"
-    const MESSAGE_ENTRY_ID = "entry.YOUR_MESSAGE_ID"
+    const NAME_ENTRY_ID = "entry.294900366"
+    const EMAIL_ENTRY_ID = "entry.1361506581"
+    const SUBJECT_ENTRY_ID = "entry.1388554904"
+    const MESSAGE_ENTRY_ID = "entry.1444328344"
     // ----------------------------------------------------
 
     const formData = new FormData()
