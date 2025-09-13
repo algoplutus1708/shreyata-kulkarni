@@ -1,5 +1,8 @@
+// File: app/api/chat/route.tsx
+
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+// This line looks for an environment variable named "GEMINI_API_KEY"
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 export async function POST(req: Request) {

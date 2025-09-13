@@ -992,7 +992,7 @@ export default function Portfolio() {
                 </h2>
 
                 <Tabs defaultValue="form" className="w-full max-w-2xl mx-auto">
-                  <TabsList className="grid w-full grid-cols-2 bg-gray-800/80 backdrop-blur-sm p-1 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 rounded-xl bg-muted p-1 dark:bg-gray-800/80 dark:backdrop-blur-sm">
                     <TabsTrigger value="form" className="rounded-lg">
                       Contact Form
                     </TabsTrigger>
@@ -1001,7 +1001,7 @@ export default function Portfolio() {
                     </TabsTrigger>
                   </TabsList>
                   <TabsContent value="form">
-                    <Card className="bg-gray-900/50 backdrop-blur-sm shadow-2xl border-gray-700/50 text-left mt-4">
+                    <Card className="mt-4 border text-left shadow-2xl backdrop-blur-sm bg-card/80 dark:bg-gray-900/50 dark:border-gray-700/50">
                       <CardContent className="p-6">
                         <form onSubmit={handleFormSubmit} className="space-y-4">
                           <div className="space-y-2">
@@ -1013,7 +1013,7 @@ export default function Portfolio() {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               required
-                              className="bg-gray-800 border-gray-700 focus:ring-blue-500"
+                              className="focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
                             />
                           </div>
                           <div className="space-y-2">
@@ -1025,7 +1025,7 @@ export default function Portfolio() {
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               required
-                              className="bg-gray-800 border-gray-700 focus:ring-blue-500"
+                              className="focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
                             />
                           </div>
                           <div className="space-y-2">
@@ -1037,7 +1037,7 @@ export default function Portfolio() {
                               value={subject}
                               onChange={(e) => setSubject(e.target.value)}
                               required
-                              className="bg-gray-800 border-gray-700 focus:ring-blue-500"
+                              className="focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
                             />
                           </div>
                           <div className="space-y-2">
@@ -1048,7 +1048,7 @@ export default function Portfolio() {
                               value={message}
                               onChange={(e) => setMessage(e.target.value)}
                               required
-                              className="min-h-[120px] bg-gray-800 border-gray-700 focus:ring-blue-500"
+                              className="min-h-[120px] focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
                             />
                           </div>
                           <div className="text-center pt-2">
@@ -1067,9 +1067,9 @@ export default function Portfolio() {
                     </Card>
                   </TabsContent>
                   <TabsContent value="info">
-                    <Card className="bg-gray-900/50 backdrop-blur-sm shadow-2xl border-gray-700/50 mt-4">
+                    <Card className="mt-4 border text-left shadow-2xl backdrop-blur-sm bg-card/80 dark:bg-gray-900/50 dark:border-gray-700/50">
                       <CardContent className="p-6 space-y-6">
-                        <p className="text-lg text-gray-300">
+                        <p className="text-lg text-muted-foreground dark:text-gray-300">
                           Ready to discuss quality engineering solutions or explore new opportunities? Let's build something
                           amazing together.
                         </p>
